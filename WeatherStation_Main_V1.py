@@ -1,0 +1,15 @@
+""" 
+File Name: WeatherStation_Main_V1.py
+Author: Joe Lucas (JL4250)
+Date Created: 26/11/2024
+Last Modified: 
+Description: This code uses classes created for four different sensors to read and display the readings of temperature, pressure, humidity and ambient light sensors.
+"""
+
+# Import Required Modules and Classes
+import WeatherStation_HumiditySensor_v1 as humidity
+import WeatherStation_LightSensor_V1 as light
+import WeatherStation_PressureSensor_v1 as pressure
+import WeatherStation_TempSensor_V1 as temp
+
+# Create Instances of Sensors
