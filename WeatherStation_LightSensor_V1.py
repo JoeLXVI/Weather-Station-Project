@@ -2,7 +2,7 @@
 File Name: WeatherStation_LightSensor_V1.py
 Author: Robbie Votta (RV434)
 Date Created: 26/11/2024
-Last Modified: 
+Last Modified: 22/01/2025
 Description: This code defines a class for a light sensor including attributes and methods to allow for the reading and display of sensor data.
 """
 
@@ -12,14 +12,13 @@ import machine
 
 class LightSensor:  #
     ConversionFactor = 0.0576
-    CommandRegister = 0x00
-    HighByte = 0x04
-    LowByte = 0x05
+
+    RegistersDictionary = {"Command": 0x00, "HighByte": 0x04, "LowByte": 0x05}
 
     def __init__(self, I2C):
         self.I2C = I2C
         self.address = 0x10
-        self.WriteRegsiter(self.CommandRegister, 0x0000)
+        self.WriteRegsiter(self.RegistersDictionary["Command"], 0x0000)
 
     def WriteRegister(self, register, payload):
         data = bytearray([(payload & 0xFF), ((payload >> 8) & 0xFF)])
@@ -30,17 +29,17 @@ class LightSensor:  #
         return int.from_bytes(data, "little")
 
     def ReadData(self):
-        LowData = ReadRegister(self.LowByte, 1)
-        HighData = ReadRegister(self.HighByte, 1)
+        LowData = ReadRegister(self.RegistersDictionary["LowByte"], 1)
+        HighData = ReadRegister(self.RegistersDictionary["HighByte"], 1)
         CombinedData = (HighData << 8) | LowData
         lux = CombinedData * self.ConversionFactor
         return lux
 
     def configure(self, settings):
-        self.WriteRegister(self.CommandRegister, settings)
+        self.WriteRegister(self.RegistersDictionary["Command"], settings)
 
     def PowerDown(self):
-        self.WriteRegister(self.CommandRegister, 0x01)
+        self.WriteRegister(self.RegistersDictionary["Command"], 0x01)
 
     def PowerUp(self):
-        self.WriteRegsiter(self.CommandRegister, 0x0000)
+        self.WriteRegsiter(self.RegistersDictionary["Command"], 0x0000)
