@@ -53,3 +53,17 @@ class LightSensor:
 
     def PowerUp(self):
         self.WriteRegsiter(self.RegistersDictionary["Command"], 0x0000)
+
+    # Create Status Check
+    def StatusCheck(self):
+        try:
+            data = self.ReadData
+            if data >= 0:
+                print("VEML6031: Sensor Responding")
+                return True
+            else:
+                print("VEML6031: Invalid Light Data")
+                return False
+        except Exception as e:
+            print(f"VEML6031 Error: {e}")
+            return False
