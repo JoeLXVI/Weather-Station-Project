@@ -16,7 +16,6 @@ class LightSensor:
 
     # Define Constants
     ConversionFactor = 0.0576
-
     RegistersDictionary = {"Command": 0x00, "HighByte": 0x04, "LowByte": 0x05}
 
     # Define Initiation Method
@@ -37,8 +36,8 @@ class LightSensor:
 
     # Create Method to Read the Light Data from the Sensor
     def ReadData(self):
-        LowData = ReadRegister(self.RegistersDictionary["LowByte"], 1)
-        HighData = ReadRegister(self.RegistersDictionary["HighByte"], 1)
+        LowData = self.ReadRegister(self.RegistersDictionary["LowByte"], 1)
+        HighData = self.ReadRegister(self.RegistersDictionary["HighByte"], 1)
         CombinedData = (HighData << 8) | LowData
         lux = CombinedData * self.ConversionFactor
         return lux
@@ -56,8 +55,10 @@ class LightSensor:
 
     # Create Status Check
     def StatusCheck(self):
+        # Use a 'Try-Except' block to handle any errors that may occur without the code stopping
         try:
             data = self.ReadData
+            # Check if the sensor is outputting data correctly
             if data >= 0:
                 print("VEML6031: Sensor Responding")
                 return True
@@ -65,5 +66,6 @@ class LightSensor:
                 print("VEML6031: Invalid Light Data")
                 return False
         except Exception as e:
+            # Display any errors if they occur
             print(f"VEML6031 Error: {e}")
             return False

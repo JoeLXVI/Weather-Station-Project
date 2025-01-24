@@ -22,7 +22,7 @@ LSObject = LS.LightSensor(I2CObject)
 sensors = LSObject
 
 # Check Status of All Sensors
-sensorStatusCheck = 0
+sensorStatusCheck = []
 for i in sensors:
     sensorStatusCheck += i.StatusCheck()
 
