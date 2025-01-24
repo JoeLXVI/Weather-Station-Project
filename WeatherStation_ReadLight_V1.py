@@ -15,7 +15,7 @@ import time
 
 I2C = machine.I2C(0, machine.pin(5), machine.pin(4))
 LSObject = LS.LightSensor(I2C)
-while True:
+while LSObject.StatusCheck():
     time.sleep(1)
     LightData = LS.ReadData()
     print(LightData)

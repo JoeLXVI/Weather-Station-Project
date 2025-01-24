@@ -65,7 +65,7 @@ class LightSensor:
             else:
                 print("VEML6031: Invalid Light Data")
                 return False
+        # Handle any errors that occur
         except Exception as e:
-            # Display any errors if they occur
             print(f"VEML6031 Error: {e}")
             return False
