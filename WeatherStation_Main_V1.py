@@ -1,8 +1,8 @@
-""" 
+"""
 File Name: WeatherStation_Main_V1.py
 Author: Joe Lucas (JL4250)
 Date Created: 26/11/2024
-Last Modified: 
+Last Modified: 17/03/2025
 Description: This code uses classes created for four different sensors to read and display the readings of temperature, pressure, humidity and ambient light sensors.
 """
 
@@ -14,16 +14,16 @@ import WeatherStation_TempSensor_V1 as temp
 import machine
 
 # Initiate I2C Communication Protocol
-I2CPins = (machine.pin(5), machine.pin(4))
+I2CPins = (machine.Pin(5), machine.Pin(4))
 I2CObject = machine.I2C(0, I2CPins[0], I2CPins[1])
 
 # Create Instances of Sensors
 LSObject = LS.LightSensor(I2CObject)
-sensors = LSObject
+sensors = [LSObject]
 
 # Check Status of All Sensors
 sensorStatusCheck = []
 for i in sensors:
-    sensorStatusCheck += i.StatusCheck()
+    sensorStatusCheck.append(i.StatusCheck())
 
 # Main Loop
