@@ -29,16 +29,17 @@ class HumiditySensor:
         )
         return int.from_bytes(raw_data, "little")
 
+    # Converts raw humidity data to percentage
     def read_humidity(self):
         raw_data = self.ReadData()
-        return raw_data / 16.0  # formula from datasheet
+        return raw_data / 16.0  # Formula from datasheet
 
     # Create Methods to Power Up and Down
     def PowerDown(self):
         ReadRegister = self.I2C.readfrom_mem(
             self.address, self.RegistersDictionary["Command"], 1
         )[0]
-        ReadRegister |= 0x80  # set bit 7 (Power Definition bit) to 1 (power up)
+        ReadRegister |= 0x80  # Set bit 7 (Power Definition bit) to 1 (power up)
         self.I2C.writeto_mem(
             self.address, self.RegistersDictionary["Command"], bytearray([ReadRegister])
         )
@@ -47,7 +48,7 @@ class HumiditySensor:
         ReadRegister = self.I2C.readfrom_mem(
             self.address, self.RegistersDictionary["Command"], 1
         )[0]
-        ReadRegister |= 0x80  # set bit 7 (Power Definition bit) to 1 (power up)
+        ReadRegister |= 0x80  # Set bit 7 (Power Definition bit) to 1 (power up)
         self.I2C.writeto_mem(
             self.address, self.RegistersDictionary["Command"], bytearray([ReadRegister])
         )
