@@ -1,4 +1,4 @@
-""" 
+"""
 File Name: WeatherStation_LightSensor_V1.py
 Author: Robbie Votta (RV434)
 Date Created: 26/11/2024
@@ -22,7 +22,7 @@ class LightSensor:
     def __init__(self, I2C):
         self.I2C = I2C
         self.address = 0x10
-        self.WriteRegsiter(self.RegistersDictionary["Command"], 0x0000)
+        self.WriteRegister(self.RegistersDictionary["Command"], 0x0000)
 
     # Create Method to Write to the Sensors Registers
     def WriteRegister(self, register, payload):
@@ -51,7 +51,7 @@ class LightSensor:
         self.WriteRegister(self.RegistersDictionary["Command"], 0x01)
 
     def PowerUp(self):
-        self.WriteRegsiter(self.RegistersDictionary["Command"], 0x0000)
+        self.WriteRegister(self.RegistersDictionary["Command"], 0x0000)
 
     # Create Status Check
     def StatusCheck(self):
